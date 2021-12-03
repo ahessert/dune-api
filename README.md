@@ -1,3 +1,8 @@
+1) Have docker running locally
+2) cd into project directory and run `docker-compose up --build -d`. This will make the postgres db with the blocks table available on localhost port 543**8** (database: postgres, user:dev_read, password:dev)... Test with `psql -U dev_read -h '0.0.0.0' -p 5438  -d postgres -c 'SELECT * FROM blocks'` (password: 'dev')
+3) Follow instructions below for building and running the typescript Dune API
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
