@@ -1,17 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import express, {Router, Request, Response, Application} from "express";
+import {Server} from "typescript-rest";
+// import {dbConnection} from './dbconnect';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const BlocksAPI = async (req: Request, res: Response) => {
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  const queryString: string = req.body
+  // const db = dbConnection.getClient()
+  // const response = await dbConnection.conn.query(queryString)
+
+  return res.status(200).json({
+    message: queryString
+});
+}
+
+const HelloWorld = (req: Request, res: Response) => {
+  return res.status(200).json({
+    message: "Hello World"
+  });
+}
+
+const router = Router();
+router.get('/', HelloWorld)
+router.post('/api', BlocksAPI)
+
+
+const app: Application = express();
+Server.buildServices(app);
+
+app.listen(3000, function() {
+  console.log('Rest Server listening on port 3000!');
+});
