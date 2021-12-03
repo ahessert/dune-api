@@ -1,15 +1,15 @@
 import express, {Router, Request, Response, Application} from "express";
 import {Server} from "typescript-rest";
-// import {dbConnection} from './dbconnect';
+import {connection} from './dbconnect';
 
 const BlocksAPI = async (req: Request, res: Response) => {
-
+  console.log(req)
   const queryString: string = req.body
-  // const db = dbConnection.getClient()
-  // const response = await dbConnection.conn.query(queryString)
+  console.log(queryString)
+  const response = await connection.query(queryString)
 
   return res.status(200).json({
-    message: queryString
+    message: response
 });
 }
 
@@ -24,7 +24,7 @@ router.get('/', HelloWorld)
 router.post('/api', BlocksAPI)
 
 
-const app: Application = express();
+const app: Application = express().use(router);
 Server.buildServices(app);
 
 app.listen(3000, function() {
